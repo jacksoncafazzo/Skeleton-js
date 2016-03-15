@@ -1,1 +1,38 @@
-!function r(e,t,n){function o(i,f){if(!t[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var m=t[i]={exports:{}};e[i][0].call(m.exports,function(r){var t=e[i][1][r];return o(t?t:r)},m,m.exports,r,e,t,n)}return t[i].exports}for(var u="function"==typeof require&&require,i=0;i<n.length;i++)o(n[i]);return o}({1:[function(r,e,t){$(document).ready(function(){$("#time").text(moment().format("MMMM Do YYYY, HH:mm A"))})},{}]},{},[1]);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+exports.apiKey = "9897796580b42ac165c5f97fd32d0c7b";
+
+},{}],2:[function(require,module,exports){
+// var pingPong = require('./../js/ping-pong.js').pingPong;
+//
+// $(document).ready(function(){
+//   $('#ping-pong').submit(function(event){
+//     event.preventDefault();
+//     var goal = $('#goal').val();
+//     var output = pingPong(goal);
+//     output.forEach(function(element){
+//       $('#solution').append("<li>" + element + "</li>");
+//     });
+//   });
+// });
+
+
+
+$(document).ready(function() {
+  $('#time').text(moment().format("MMMM Do YYYY, HH:mm A"));
+});
+
+var apiKey = require('./../.env').apiKey;
+
+$(document).ready(function() {
+  $('#weatherLocation').click(function() {
+    var city = $('#location').val();
+    $('#location').val("");
+    $.get('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + apiKey).then(function(response) {
+      $('.showWeather').text("The humidity in " + city + " is " + response.main.humidity + "%");
+    }).fail(function(error) {
+      $('.showWeather').text(error.message);
+    });
+  });
+});
+
+},{"./../.env":1}]},{},[2]);
