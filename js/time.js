@@ -1,7 +1,13 @@
 module.exports.time = time;
 
-exports.time(hours, minutes) {
-  this.hours = hours;
-  this.minutes = minutes;
-  
+function time(alarm) {
+  this.alarm = alarm;
 }
+
+time.prototype.ringTheAlarm = function() {
+  if (moment() === this.alarm) {
+    return console.log("DINGDINGDINGDINGDINGDINGDINGDINGDINGDING");
+  } else {
+    updateTime();
+  }
+};

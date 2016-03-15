@@ -2,6 +2,21 @@
 exports.apiKey = "9897796580b42ac165c5f97fd32d0c7b";
 
 },{}],2:[function(require,module,exports){
+module.exports.time = time;
+
+function time(alarm) {
+  this.alarm = alarm;
+}
+
+time.prototype.ringTheAlarm = function() {
+  if (moment() === this.alarm) {
+    return console.log("DINGDINGDINGDINGDINGDINGDINGDINGDINGDING");
+  } else {
+    updateTime();
+  }
+};
+
+},{}],3:[function(require,module,exports){
 // var pingPong = require('./../js/ping-pong.js').pingPong;
 //
 // $(document).ready(function(){
@@ -15,15 +30,31 @@ exports.apiKey = "9897796580b42ac165c5f97fd32d0c7b";
 //   });
 // });
 
+var alarmObj = require('./../js/time.js');
+var time = moment().format('h:mm:ss A MMMM Do YYYY');
 
 function updateTime() {
-  var time = moment().format('h:mm:ss A MMMM Do YYYY');
+  time = moment().format('h:mm:ss A MMMM Do YYYY');
+  ringTheAlarm(time);
   document.getElementById('time').innerHTML = time;
-  setTimeout(updateTime, 500);
+  setTimeout(updateTime, 1000);
 }
 
+function ringTheAlarm(time) {
+  if (moment() === time) {
+    return console.log("DINGDINGDINGDINGDINGDINGDINGDINGDINGDING");
+  } 
+};
+
 $(document).ready(function() {
-  $('#time').text(updateTime());
+  $("#time").text(updateTime());
+
+  $("#alarmForm").submit(function(event) {
+    event.preventDefault();
+    var alarm = $("#alarm").val();
+
+    $("#alarmPost").append(alarm);
+  });
 });
 
 var apiKey = require('./../.env').apiKey;
@@ -40,4 +71,4 @@ $(document).ready(function() {
   });
 });
 
-},{"./../.env":1}]},{},[2]);
+},{"./../.env":1,"./../js/time.js":2}]},{},[3]);

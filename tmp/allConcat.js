@@ -11,15 +11,32 @@
 //   });
 // });
 
+var alarmObj = require('./../js/time.js');
+var time = moment().format('h:mm:ss A MMMM Do YYYY');
+
 
 function updateTime() {
-  var time = moment().format('h:mm:ss A MMMM Do YYYY');
+  time = moment().format('h:mm:ss A MMMM Do YYYY');
   document.getElementById('time').innerHTML = time;
-  setTimeout(updateTime, 500);
+  if (alarm === moment().format('h:mm:ss A MMMM Do YYYY'))
+    return console.log("DINGDINGDINGDINGDINGDINGDINGDINGDINGDING");
+  }
+  setTimeout(updateTime, 1000);
 }
 
+function ringTheAlarm() {
+
+};
+
 $(document).ready(function() {
-  $('#time').text(updateTime());
+  $("#time").text(updateTime());
+
+  $("#alarmForm").submit(function(event) {
+    event.preventDefault();
+    var alarm = $("#alarm").val();
+    ringTheAlarm(alarm);
+    document.getElementById('#alarmPost').innerHTML = '<h4>This is your alarm: ' + alarm + '</h4>';
+  });
 });
 
 var apiKey = require('./../.env').apiKey;
